@@ -13,7 +13,7 @@ public:
    [[eosio::on_notify("eosio.token::transfer")]] void onpay(name from, name to, asset quantity, std::string memo);
 
 private:
-   const int64_t REGISTRATION_COST = 3;
+   const int64_t REGISTRATION_COST = 30000;
 
    TABLE enroll
    {

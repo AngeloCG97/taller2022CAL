@@ -16,7 +16,7 @@ ACTION voting::vote(name voter, bool agree)
                   { row.voter = voter; });
 }
 
-ACTION voting::onpay(name from, name to, asset quantity, std::string memo)
+void voting::onpay(name from, name to, asset quantity, std::string memo)
 {
    check(quantity.amount == REGISTRATION_COST, "The cost to enroll is incorrect, please pay " + std::to_string(REGISTRATION_COST) + " EOS only.");
 
