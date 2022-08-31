@@ -16,3 +16,6 @@ build_k8s
 !*/.yarn/plugins
 .pnp.*
 .yarnrc.yml
+
+# contracts
+build
