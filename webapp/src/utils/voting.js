@@ -16,12 +16,8 @@ const buildTransaction = ({ actor, action, data, contract }) => {
   }
 }
 
-// push action eosio.token transfer
-// '{"from": "sometestacco", "to": "tecworkshop1", "quantity": "3.0000 EOS", "memo": "pay course"}'
-// -p sometestacco@active
-
-const voting = ({ actor, election }) => {
-  const data = { voter: actor, agree: election }
+const vote = ({ actor, election }) => {
+  const data = { voter: actor, course: election }
 
   return buildTransaction({
     data,
@@ -47,4 +43,4 @@ const pay = actor => {
   })
 }
 
-export { voting, pay }
+export { vote, pay }

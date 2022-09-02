@@ -9,7 +9,7 @@ import styles from './styles'
 
 const useStyles = makeStyles(styles)
 
-const VoteItem = ({ item }) => {
+const VoteItem = ({ item, action }) => {
   const classes = useStyles()
 
   return (
@@ -18,7 +18,7 @@ const VoteItem = ({ item }) => {
       xs={12}
       md={6}
       className={classes.gridButton}
-      onClick={() => console.log('TESTING')}
+      onClick={() => action(item.value)}
     >
       <Box width="100%" justifyContent="center" display="flex" paddingY={4}>
         <img height="300px" width="80%" alt={item.alt} src={item.image} />
@@ -31,7 +31,8 @@ const VoteItem = ({ item }) => {
 }
 
 VoteItem.propTypes = {
-  item: PropTypes.object
+  item: PropTypes.object,
+  action: PropTypes.func
 }
 
 export default memo(VoteItem)
