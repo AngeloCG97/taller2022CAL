@@ -1,6 +1,6 @@
 #include <voting.hpp>
 
-ACTION voting::vote(name voter, name course)
+ACTION voting::vote(name voter, std::string course)
 {
    enroll_table _enroll{get_self(), get_self().value};
    auto enroll_itr = _enroll.find(voter.value);

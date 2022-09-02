@@ -8,7 +8,7 @@ CONTRACT voting : public contract
 public:
    using contract::contract;
 
-   ACTION vote(name voter, name course);
+   ACTION vote(name voter, std::string course);
 
    ACTION clearvotes();
 
@@ -33,7 +33,7 @@ private:
    TABLE votes
    {
       name voter;
-      name course;
+      std::string course;
 
       auto primary_key() const
       {
