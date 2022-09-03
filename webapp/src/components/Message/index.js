@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { makeStyles } from '@mui/styles'
-import Snackbar from '@mui/material/Snackbar'
+import { Snackbar, Link } from '@mui/material'
 import Alert from '@mui/material/Alert'
 
 import { useSharedState } from '../../context/state.context'
@@ -39,7 +39,10 @@ const Message = () => {
         onClose={handleClose}
         className={classes.alert}
       >
-        {message?.content}
+        {message?.content?.content}{' '}
+        <Link underline="always" href={message?.content?.link?.href}>
+          {message?.content?.link?.text}
+        </Link>
       </Alert>
     </Snackbar>
   )
