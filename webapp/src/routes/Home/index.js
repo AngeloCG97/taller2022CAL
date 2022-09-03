@@ -4,6 +4,7 @@ import { Typography, Grid } from '@mui/material'
 
 import { useSharedState } from '../../context/state.context'
 import VoteItem from '../../components/VoteItem'
+import Pay from '../../components/Pay'
 import { mainConfig } from '../../config'
 import { vote } from '../../utils'
 
@@ -50,10 +51,19 @@ const Home = () => {
 
   return (
     <Grid container>
-      <Typography>{t('welcomeMessage')}</Typography>
-      {options.map((option, index) => (
-        <VoteItem key={index} item={option} action={handleVote} />
-      ))}
+      {state.user ? (
+        <>
+          <Typography>{t('welcomeMessage')}</Typography>
+          {options.map((option, index) => (
+            <VoteItem key={index} item={option} action={handleVote} />
+          ))}
+          <Pay />
+        </>
+      ) : (
+        <Typography variant="h5">
+          Sistema de votacion para la definición de electivas
+        </Typography>
+      )}
     </Grid>
   )
 }
