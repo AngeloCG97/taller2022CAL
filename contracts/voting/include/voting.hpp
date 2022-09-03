@@ -8,7 +8,11 @@ CONTRACT voting : public contract
 public:
    using contract::contract;
 
-   ACTION vote(name voter, bool agree);
+   ACTION vote(name voter, std::string course);
+
+   ACTION clearvotes();
+
+   ACTION clearall();
 
    [[eosio::on_notify("eosio.token::transfer")]] void onpay(name from, name to, asset quantity, std::string memo);
 
@@ -29,6 +33,7 @@ private:
    TABLE votes
    {
       name voter;
+      std::string course;
 
       auto primary_key() const
       {
