@@ -1,9 +1,11 @@
-import React, { memo } from 'react'
+import React, { memo, useEffect } from 'react'
 // import PropTypes from 'prop-types'
 // import Box from '@mui/material/Box'
+import { useSharedState } from '../../context/state.context'
 import Grid from '@mui/material/Grid'
 // import { makeStyles } from '@mui/styles'
 import { Button, Typography } from '@mui/material'
+import { hasPay } from '../../utils'
 
 // import styles from './styles'
 
@@ -11,6 +13,15 @@ import { Button, Typography } from '@mui/material'
 
 const Pay = () => {
   // const classes = useStyles()
+  const [state] = useSharedState()
+
+  const checkPayment = async () => {
+    console.log('CHECKING-PAYMENT')
+    const enrolled = await hasPay(state?.ual?.activeUser?.accountName)
+    console.log('HAS-PAY', enrolled)
+  }
+
+  useEffect(checkPayment, [])
 
   return (
     <Grid item xs={12}>

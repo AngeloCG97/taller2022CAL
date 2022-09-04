@@ -4,8 +4,6 @@ SHELL := /bin/bash
 BLUE   := $(shell tput -Txterm setaf 6)
 RESET  := $(shell tput -Txterm sgr0)
 
-K8S_BUILD_DIR ?= ./build_k8s
-K8S_FILES := $(shell find ./kubernetes -name '*.yaml' | sed 's:./kubernetes/::g')
 
 run:
 	make -B postgres
@@ -73,33 +71,6 @@ clean:
 	@rm -rf tmp/hapi
 	@rm -rf tmp/webapp
 	@docker system prune
-
-build-kubernetes: ##@devops Generate proper k8s files based on the templates
-build-kubernetes: ./kubernetes
-	@echo "Build kubernetes files..."
-	@rm -Rf $(K8S_BUILD_DIR) && mkdir -p $(K8S_BUILD_DIR)
-	@for file in $(K8S_FILES); do \
-		mkdir -p `dirname "$(K8S_BUILD_DIR)/$$file"`; \
-		$(SHELL_EXPORT) envsubst <./kubernetes/$$file >$(K8S_BUILD_DIR)/$$file; \
-	done
-
-deploy-kubernetes: ##@devops Publish the build k8s files
-deploy-kubernetes: $(K8S_BUILD_DIR)
-	@kubectl create ns $(NAMESPACE) || echo "Namespace '$(NAMESPACE)' already exists.";
-	@echo "Creating SSL certificates..."
-	@kubectl create secret tls \
-		tls-secret \
-		--key ./ssl/edenia.cloud.priv.key \
-		--cert ./ssl/edenia.cloud.crt \
-		-n $(NAMESPACE)  || echo "SSL cert already configured.";
-	@echo "Creating configmaps..."
-	@kubectl create configmap -n $(NAMESPACE) \
-	wallet-config \
-	--from-file wallet/config/ || echo "Wallet configuration already created.";
-	@echo "Applying kubernetes files..."
-	@for file in $(shell find $(K8S_BUILD_DIR) -name '*.yaml' | sed 's:$(K8S_BUILD_DIR)/::g'); do \
-		kubectl apply -f $(K8S_BUILD_DIR)/$$file -n $(NAMESPACE) || echo "${file} Cannot be updated."; \
-	done
 
 build-docker-images: ##@devops Build docker images
 build-docker-images:

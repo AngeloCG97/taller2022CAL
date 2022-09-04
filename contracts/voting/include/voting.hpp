@@ -19,7 +19,7 @@ public:
 private:
    const int64_t REGISTRATION_COST = 30000;
 
-   TABLE enroll
+   TABLE students
    {
       name student;
 
@@ -28,7 +28,7 @@ private:
          return student.value;
       }
    };
-   typedef multi_index<name("enroll"), enroll> enroll_table;
+   typedef multi_index<name("students"), students> students_table;
 
    TABLE votes
    {
