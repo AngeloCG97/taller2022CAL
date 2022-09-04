@@ -1,3 +1,5 @@
+import { eosApi } from './eosapi'
+
 const buildTransaction = ({ actor, action, data, contract }) => {
   return {
     actions: [
@@ -43,4 +45,17 @@ const pay = actor => {
   })
 }
 
-export { vote, pay }
+const hasPay = async account => {
+  const { rows } = await eosApi.getTableRows({
+    code: 'tecworkshop1',
+    scope: 'tecworkshop1',
+    table: 'enroll',
+    json: true,
+    lower_bound: account,
+    upper_bound: account
+  })
+
+  return rows.length
+}
+
+export { vote, pay, hasPay }

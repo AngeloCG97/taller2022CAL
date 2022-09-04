@@ -1,4 +1,4 @@
-import React, { memo } from 'react'
+import React, { memo, useState, useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Typography, Grid } from '@mui/material'
 
@@ -6,7 +6,7 @@ import { useSharedState } from '../../context/state.context'
 import VoteItem from '../../components/VoteItem'
 import Pay from '../../components/Pay'
 import { mainConfig } from '../../config'
-import { vote } from '../../utils'
+import { vote, pay, hasPay } from '../../utils'
 
 const options = [
   {
@@ -25,44 +25,87 @@ const options = [
 
 const Home = () => {
   const { t } = useTranslation('homeRoute')
+  const [userPay, setUserPay] = useState()
   const [state, { showMessage }] = useSharedState()
 
   const handleVote = async course => {
-    const transaction = vote({
-      actor: state?.ual?.activeUser?.accountName,
-      election: course
-    })
+    try {
+      const transaction = vote({
+        actor: state?.ual?.activeUser?.accountName,
+        election: course
+      })
 
-    const result = await state.ual.activeUser.signTransaction(transaction, {
-      broadcast: true
-    })
+      const result = await state.ual.activeUser.signTransaction(transaction, {
+        broadcast: true
+      })
 
-    showMessage({
-      type: 'success',
-      content: {
-        content: 'Voto exitoso, consulte su transacción aquí:',
-        link: {
-          href: `${mainConfig.bloksExplorer}${result?.transactionId}`,
-          text: result?.transactionId
+      showMessage({
+        type: 'success',
+        content: {
+          content: 'Voto exitoso, consulte su transacción aquí:',
+          link: {
+            href: `${mainConfig.bloksExplorer}${result?.transactionId}`,
+            text: result?.transactionId
+          }
         }
-      }
-    })
+      })
+    } catch (error) {
+      showMessage({
+        type: 'error',
+        content: error.message
+      })
+    }
   }
+
+  const handlePay = async () => {
+    try {
+      const transaction = pay({
+        actor: state?.ual?.activeUser?.accountName
+      })
+
+      const result = await state.ual.activeUser.signTransaction(transaction, {
+        broadcast: true
+      })
+
+      showMessage({
+        type: 'success',
+        content: {
+          content: 'Pago exitoso, consulte su transacción aquí:',
+          link: {
+            href: `${mainConfig.bloksExplorer}${result?.transactionId}`,
+            text: result?.transactionId
+          }
+        }
+      })
+    } catch (error) {
+      showMessage({
+        type: 'error',
+        content: error.message
+      })
+    }
+  }
+
+  const checkPayment = async () => {
+    const enrolled = await hasPay(state?.ual?.activeUser?.accountName)
+    setUserPay(enrolled)
+    console.log('HAS-PAY', enrolled)
+  }
+
+  useEffect(checkPayment, [state.user])
 
   return (
     <Grid container>
+      <Typography variant="h5">{t('welcomeMessage')}</Typography>
       {state.user ? (
-        <>
-          <Typography>{t('welcomeMessage')}</Typography>
-          {options.map((option, index) => (
+        userPay ? (
+          options.map((option, index) => (
             <VoteItem key={index} item={option} action={handleVote} />
-          ))}
-          <Pay />
-        </>
+          ))
+        ) : (
+          <Pay action={handlePay} />
+        )
       ) : (
-        <Typography variant="h5">
-          Sistema de votacion para la definición de electivas
-        </Typography>
+        <></>
       )}
     </Grid>
   )
