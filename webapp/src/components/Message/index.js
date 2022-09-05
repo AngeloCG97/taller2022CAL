@@ -39,10 +39,16 @@ const Message = () => {
         onClose={handleClose}
         className={classes.alert}
       >
-        {message?.content?.content}{' '}
-        <Link underline="always" href={message?.content?.link?.href}>
-          {message?.content?.link?.text}
-        </Link>
+        {message?.content?.content ? (
+          <>
+            {message?.content?.content}{' '}
+            <Link underline="always" href={message?.content?.link?.href}>
+              {message?.content?.link?.text}
+            </Link>
+          </>
+        ) : (
+          message?.content
+        )}
       </Alert>
     </Snackbar>
   )
