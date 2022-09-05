@@ -11,13 +11,13 @@ ARG react_app_ual_api_host
 ARG react_app_ual_api_port
 ARG react_app_ual_chain_id
 ARG react_app_hasura_url
-ARG reat_app_bloks_explorer
+ARG REACT_APP_BLOKS_EXPLORER
 
 ENV REACT_APP_TAG $react_app_tag
 ENV REACT_APP_NAME $react_app_name
 ENV REACT_APP_TITLE $react_app_title
 ENV REACT_APP_LOGO $react_app_logo
-ENV REAT_APP_BLOKS_EXPLORER $reat_app_bloks_explorer
+ENV REACT_APP_BLOKS_EXPLORER $react_app_bloks_explorer
 ENV REACT_APP_FOOTER_LINKS $react_app_footer_links
 ENV REACT_APP_UAL_APP_NAME $react_app_ual_app_name
 ENV REACT_APP_UAL_API_PROTOCOL $react_app_ual_api_protocol

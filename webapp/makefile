@@ -26,7 +26,7 @@ build-docker: ./Dockerfile
 		--build-arg react_app_name="$(REACT_APP_NAME)" \
 		--build-arg react_app_title="$(REACT_APP_TITLE)" \
 		--build-arg react_app_logo="$(REACT_APP_LOGO)" \
-		--build-arg reat_app_bloks_explorer="$(REAT_APP_BLOKS_EXPLORER)" \
+		--build-arg react_app_bloks_explorer="$(REACT_APP_BLOKS_EXPLORER)" \
 		--build-arg react_app_footer_links="$(REACT_APP_FOOTER_LINKS)" \
 		--build-arg react_app_ual_app_name="$(REACT_APP_UAL_APP_NAME)" \
 		--build-arg react_app_ual_api_protocol="$(REACT_APP_UAL_API_PROTOCOL)" \
