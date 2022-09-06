@@ -6,7 +6,12 @@ import { useSharedState } from '../../context/state.context'
 import VoteItem from '../../components/VoteItem'
 import Pay from '../../components/Pay'
 import { mainConfig } from '../../config'
-import { vote, pay, hasPay } from '../../utils'
+import { vote, pay, hasPay, getVotes } from '../../utils'
+
+const COURSE_ID = {
+  ia: 'IC-IA01',
+  blockchain: 'IC-BC01'
+}
 
 const options = [
   {
@@ -16,9 +21,9 @@ const options = [
     value: 'IC-BC01'
   },
   {
-    name: 'Introducción a la Inteligenci Artificial',
+    name: 'Introducción a la Inteligencia Artificial',
     image: 'images/ia-image.jpg',
-    alt: 'Introducción a la Inteligenci Artificial',
+    alt: 'Introducción a la Inteligencia Artificial image',
     value: 'IC-IA01'
   }
 ]
@@ -59,9 +64,7 @@ const Home = () => {
 
   const handlePay = async () => {
     try {
-      const transaction = pay({
-        actor: state?.ual?.activeUser?.accountName
-      })
+      const transaction = pay(state?.ual?.activeUser?.accountName)
 
       const result = await state.ual.activeUser.signTransaction(transaction, {
         broadcast: true
@@ -91,7 +94,27 @@ const Home = () => {
     console.log('HAS-PAY', enrolled)
   }
 
+  const calculateVotes = async () => {
+    const votes = await getVotes()
+
+    if (!votes.length) return
+
+    const { ia, blockchain } = votes.reduce(
+      (prev, current) => {
+        prev[
+          current.course === COURSE_ID.blockchain ? 'blockchain' : 'ia'
+        ].push(current.voter)
+
+        return prev
+      },
+      { ia: [], blockchain: [] }
+    )
+
+    console.log('VOTES', { ia, blockchain })
+  }
+
   useEffect(checkPayment, [state.user])
+  useEffect(calculateVotes, [])
 
   return (
     <Grid container>

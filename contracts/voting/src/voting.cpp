@@ -3,9 +3,9 @@
 ACTION voting::vote(name voter, std::string course)
 {
    students_table _students{get_self(), get_self().value};
-   auto enroll_itr = _students.find(voter.value);
+   auto student_itr = _students.find(voter.value);
 
-   check(enroll_itr != _students.end(), "Student is not enrolled");
+   check(student_itr != _students.end(), "Student is not enrolled");
 
    votes_table _votes{get_self(), get_self().value};
    auto votes_itr = _votes.find(voter.value);
@@ -23,9 +23,9 @@ void voting::onpay(name from, name to, asset quantity, std::string memo)
    check(quantity.amount == REGISTRATION_COST, "The cost to enroll is incorrect, please pay " + std::to_string(REGISTRATION_COST) + " EOS only.");
 
    students_table _students{get_self(), get_self().value};
-   auto enroll_itr = _students.find(from.value);
+   auto student_itr = _students.find(from.value);
 
-   check(enroll_itr == _students.end(), "Student is already enrolled");
+   check(student_itr == _students.end(), "Student is already enrolled");
 
    _students.emplace(get_self(), [&](auto &row)
                      { row.student = from; });
