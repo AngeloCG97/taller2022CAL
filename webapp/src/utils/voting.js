@@ -32,7 +32,7 @@ const vote = ({ actor, election }) => {
 const pay = actor => {
   const data = {
     from: actor,
-    to: 'eosio.token',
+    to: 'tecworkshop1',
     memo: 'pay course',
     quantity: '3.0000 EOS'
   }
@@ -49,7 +49,7 @@ const hasPay = async account => {
   const { rows } = await eosApi.getTableRows({
     code: 'tecworkshop1',
     scope: 'tecworkshop1',
-    table: 'enroll',
+    table: 'students',
     json: true,
     lower_bound: account,
     upper_bound: account
@@ -58,4 +58,15 @@ const hasPay = async account => {
   return rows.length
 }
 
-export { vote, pay, hasPay }
+const getVotes = async () => {
+  const { rows } = await eosApi.getTableRows({
+    code: 'tecworkshop1',
+    scope: 'tecworkshop1',
+    table: 'votes',
+    json: true
+  })
+
+  return rows
+}
+
+export { vote, pay, hasPay, getVotes }

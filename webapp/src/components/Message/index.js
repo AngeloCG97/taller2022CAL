@@ -42,7 +42,11 @@ const Message = () => {
         {message?.content?.content ? (
           <>
             {message?.content?.content}{' '}
-            <Link underline="always" href={message?.content?.link?.href}>
+            <Link
+              underline="always"
+              target="_blank"
+              href={message?.content?.link?.href}
+            >
               {message?.content?.link?.text}
             </Link>
           </>

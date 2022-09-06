@@ -3,17 +3,12 @@ import React, { lazy } from 'react'
 import {
   Grid as GridIcon,
   Info as InfoIcon,
-  HelpCircle as HelpIcon,
-  GitMerge as GitMergeIcon,
   GitHub as GitHubIcon,
   Send as TelegramIcon
 } from 'react-feather'
 
-import { mainConfig } from '../config'
-
 const Home = lazy(() => import('./Home'))
-const About = lazy(() => import('./About'))
-const Help = lazy(() => import('./Help'))
+const Results = lazy(() => import('./Results'))
 const Page404 = lazy(() => import('./Route404'))
 
 const routes = [
@@ -26,24 +21,10 @@ const routes = [
   },
   {
     header: 'docs',
-    name: 'about',
+    name: 'result',
     icon: <InfoIcon />,
-    component: About,
-    path: '/about',
-    exact: true
-  },
-  {
-    name: 'help',
-    icon: <HelpIcon />,
-    component: Help,
-    path: '/help',
-    exact: true
-  },
-  {
-    name: 'changelog',
-    badge: mainConfig.appVersion,
-    path: 'https://github.com/eoscostarica/full-stack-boilerplate/tags',
-    icon: <GitMergeIcon />,
+    component: Results,
+    path: '/result',
     exact: true
   },
   {

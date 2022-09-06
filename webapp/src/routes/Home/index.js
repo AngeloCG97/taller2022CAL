@@ -16,9 +16,9 @@ const options = [
     value: 'IC-BC01'
   },
   {
-    name: 'Introducción a la Inteligenci Artificial',
+    name: 'Introducción a la Inteligencia Artificial',
     image: 'images/ia-image.jpg',
-    alt: 'Introducción a la Inteligenci Artificial',
+    alt: 'Introducción a la Inteligencia Artificial image',
     value: 'IC-IA01'
   }
 ]
@@ -59,9 +59,7 @@ const Home = () => {
 
   const handlePay = async () => {
     try {
-      const transaction = pay({
-        actor: state?.ual?.activeUser?.accountName
-      })
+      const transaction = pay(state?.ual?.activeUser?.accountName)
 
       const result = await state.ual.activeUser.signTransaction(transaction, {
         broadcast: true
@@ -77,6 +75,7 @@ const Home = () => {
           }
         }
       })
+      checkPayment()
     } catch (error) {
       showMessage({
         type: 'error',
@@ -88,7 +87,6 @@ const Home = () => {
   const checkPayment = async () => {
     const enrolled = await hasPay(state?.ual?.activeUser?.accountName)
     setUserPay(enrolled)
-    console.log('HAS-PAY', enrolled)
   }
 
   useEffect(checkPayment, [state.user])

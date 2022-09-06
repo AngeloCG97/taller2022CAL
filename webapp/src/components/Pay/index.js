@@ -9,8 +9,9 @@ const Pay = ({ action }) => {
       <Box pt={4}>
         <Typography variant="body1">
           Antes de realizar la votación por la electiva que desea que impartan
-          el proximo semetre en el CAL(Centro Académico de Limón), debe realizar
-          el pago de matricula del curso el cual tiene un costo de 3 EOS.
+          el próximo semestre en el CAL(Centro Académico de Limón), debe
+          realizar el pago de matricula del curso el cual tiene un costo de 3
+          EOS.
         </Typography>
         <Box pt={2}>
           <Button variant="contained" onClick={action}>
