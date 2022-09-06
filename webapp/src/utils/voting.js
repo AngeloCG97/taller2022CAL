@@ -50,6 +50,7 @@ const hasPay = async account => {
     code: 'tecworkshop1',
     scope: 'tecworkshop1',
     table: 'students',
+    limit: 100,
     json: true,
     lower_bound: account,
     upper_bound: account
@@ -63,7 +64,8 @@ const getVotes = async () => {
     code: 'tecworkshop1',
     scope: 'tecworkshop1',
     table: 'votes',
-    json: true
+    json: true,
+    limit: 100
   })
 
   return rows
