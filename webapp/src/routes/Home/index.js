@@ -6,12 +6,7 @@ import { useSharedState } from '../../context/state.context'
 import VoteItem from '../../components/VoteItem'
 import Pay from '../../components/Pay'
 import { mainConfig } from '../../config'
-import { vote, pay, hasPay, getVotes } from '../../utils'
-
-const COURSE_ID = {
-  ia: 'IC-IA01',
-  blockchain: 'IC-BC01'
-}
+import { vote, pay, hasPay } from '../../utils'
 
 const options = [
   {
@@ -80,6 +75,7 @@ const Home = () => {
           }
         }
       })
+      checkPayment()
     } catch (error) {
       showMessage({
         type: 'error',
@@ -91,30 +87,9 @@ const Home = () => {
   const checkPayment = async () => {
     const enrolled = await hasPay(state?.ual?.activeUser?.accountName)
     setUserPay(enrolled)
-    console.log('HAS-PAY', enrolled)
-  }
-
-  const calculateVotes = async () => {
-    const votes = await getVotes()
-
-    if (!votes.length) return
-
-    const { ia, blockchain } = votes.reduce(
-      (prev, current) => {
-        prev[
-          current.course === COURSE_ID.blockchain ? 'blockchain' : 'ia'
-        ].push(current.voter)
-
-        return prev
-      },
-      { ia: [], blockchain: [] }
-    )
-
-    console.log('VOTES', { ia, blockchain })
   }
 
   useEffect(checkPayment, [state.user])
-  useEffect(calculateVotes, [])
 
   return (
     <Grid container>
