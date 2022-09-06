@@ -1,6 +1,5 @@
 import React, { memo, useState, useEffect } from 'react'
-import { useTranslation } from 'react-i18next'
-import { Typography, Grid } from '@mui/material'
+import { Grid } from '@mui/material'
 
 import { useSharedState } from '../../context/state.context'
 import VoteItem from '../../components/VoteItem'
@@ -24,7 +23,6 @@ const options = [
 ]
 
 const Home = () => {
-  const { t } = useTranslation('homeRoute')
   const [userPay, setUserPay] = useState()
   const [state, { showMessage }] = useSharedState()
 
@@ -75,7 +73,8 @@ const Home = () => {
           }
         }
       })
-      checkPayment()
+      await new Promise(resolve => setTimeout(resolve, 1500))
+      await checkPayment()
     } catch (error) {
       showMessage({
         type: 'error',
@@ -93,7 +92,6 @@ const Home = () => {
 
   return (
     <Grid container>
-      <Typography variant="h5">{t('welcomeMessage')}</Typography>
       {state.user ? (
         userPay ? (
           options.map((option, index) => (

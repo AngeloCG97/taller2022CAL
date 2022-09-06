@@ -8,7 +8,7 @@
   "routes": {
     "/>title": "EOSIO Boilerplate",
     "/>sidebar": "Inicio",
-    "/>heading": "Inicio",
+    "/>heading": "Sistema de votación",
     "/result>title": "Resultados | EOSIO Boilerplate",
     "/result>sidebar": "Resultados",
     "/result>heading": "Resultados",
@@ -22,7 +22,7 @@
     "telegram": "Grupo en Telegram"
   },
   "homeRoute": {
-    "welcomeMessage": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc ac viverra nunc, vitae rhoncus metus."
+    "welcomeMessage": "Sistema de votación."
   },
   "aboutRoute": {
     "title": "Este proyecto",
