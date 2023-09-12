@@ -3,10 +3,9 @@ export default theme => ({
     backgroundColor: theme.palette.background.paper,
     display: 'flex',
     justifyContent: 'center',
-    padding: theme.spacing(3),
+    padding: theme.spacing(2),
     '& img': {
-      width: 'auto',
-      height: '125px'
+      width: '66%'
     },
     '& img:hover': {
       cursor: 'pointer'

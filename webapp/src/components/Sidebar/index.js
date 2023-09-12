@@ -145,7 +145,7 @@ const Sidebar = ({ routes, ...props }) => {
       <Box className={classes.brand}>
         <img
           alt={mainConfig.title}
-          src={mainConfig.logo}
+          src={'images/logo-edenia.png'}
           onClick={() => navigate('/')}
         />
       </Box>
